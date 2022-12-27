@@ -10,10 +10,10 @@ function Button(props) {
 	)
 }
 
-export default class ActiveButtons extends React.Component() {
+export default class ToggleButtons extends Component() {
 	constructor(props) {
 		super(props);
-		this.state = { isToggleOn: true };
+		this.state = { isToggleOn: false };
 		this.handleClick = this.handleClick.bind(this);
 	}
 	handleClick() {
