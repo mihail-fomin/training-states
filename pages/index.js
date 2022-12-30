@@ -1,51 +1,47 @@
-import React, { Component } from "react"
+import React from "react"
+import { twMerge } from "tailwind-merge"
 
-function Button(props) {
+function Container({ children }) {
 	return (
-		<div className='container mx-auto '>
-			<button className="non-active" >
-				{props.number} button
-			</button>
+		<div className='container mx-auto'>
+			{children}
 		</div>
 	)
 }
 
-export default class ToggleButtons extends Component() {
-	constructor(props) {
-		super(props);
-		this.state = { isToggleOn: false };
-		this.handleClick = this.handleClick.bind(this);
-	}
-	handleClick() {
-		this.setState(prevState => ({
-			isToggleOn: !prevState.isToggleOn
-		}));
-	}
+function Item({ active, children, onClick }) {
+	const commonCn = `flex inline-center cursor-pointer text-black justify-center w-full p-2 text-xl text-left border-2 border-gray-400 rounded`
+	const activeCn = active ? `text-white bg-blue-600` : ``
 
-	render() {
-		return (
-			<div>
-				<Button
-					className={this.state.isToggleOn ? 'active' : 'non-active'}
-					onClick={this.handleClick}
-					number={'First'} />
-				<Button
-					className={this.state.isToggleOn ? 'active' : 'non-active'}
-					onClick={this.handleClick}
-					number={'Second'} />
-				<Button
-					className={this.state.isToggleOn ? 'active' : 'non-active'}
-					onClick={this.handleClick}
-					number={'Third'} />
-				<Button
-					className={this.state.isToggleOn ? 'active' : 'non-active'}
-					onClick={this.handleClick}
-					number={'Fourth'} />
-				<Button
-					className={this.state.isToggleOn ? 'active' : 'non-active'}
-					onClick={this.handleClick}
-					number={'Fifth'} />
-			</div>
-		);
-	}
+	return (
+		<div className={twMerge(commonCn + activeCn)} onClick={onClick} >
+			{children}
+		</div>
+	)
+}
+
+function Accordion({ items }) {
+
+	const [activeIndex, setactiveIndex] = React.useState(0)
+
+	return (
+		<div>
+			{
+				items.map((item, i) => {
+					return <Item active={activeIndex == i} onClick={() => setactiveIndex(i)}>
+						{item}
+					</Item>
+				})
+			}
+		</div>
+	)
+}
+
+export default function Body() {
+	return <div>
+		<Container>
+			<Accordion items={["First", "Second", "Third"]} />
+			<Accordion items={["A", "B", "C", "D"]} />
+		</Container>
+	</div>
 }
