@@ -1,5 +1,7 @@
-import React from "react"
+import * as React from "react"
 import { twMerge } from "tailwind-merge"
+import { MainMenu } from "../components/MainMenu"
+
 
 function Container({ children }) {
 	return (
@@ -40,6 +42,7 @@ function Accordion({ items }) {
 export default function Body() {
 	return <div>
 		<Container>
+			<MainMenu />
 			<Accordion items={["First", "Second", "Third"]} />
 			<Accordion items={["A", "B", "C", "D"]} />
 		</Container>
