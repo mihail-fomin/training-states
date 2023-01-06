@@ -1,15 +1,9 @@
 import * as React from "react"
 import { twMerge } from "tailwind-merge"
 import { MainMenu } from "../components/MainMenu"
+import Container from "../components/Container"
 
 
-function Container({ children }) {
-	return (
-		<div className='container mx-auto'>
-			{children}
-		</div>
-	)
-}
 
 function Item({ active, children, onClick }) {
 	const commonCn = `flex inline-center cursor-pointer text-black justify-center w-full p-2 text-xl text-left border-2 border-gray-400 rounded`

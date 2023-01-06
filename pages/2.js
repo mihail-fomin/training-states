@@ -1,19 +1,12 @@
 import * as React from "react"
 import { MainMenu } from "../components/MainMenu"
 import { twMerge } from "tailwind-merge"
+import Container from "../components/Container"
 
-
-function Container({ children }) {
-	return (
-		<div className='container mx-auto'>
-			{children}
-		</div>
-	)
-}
-
-function Item({ active, children, onClick }) {
+function Item({ active, disabled, children, onClick }) {
 	const commonCn = `cursor-pointer text-black w-full p-2 text-xl border-2 border-gray-400 hover:bg-gray-200 rounded`
 	const activeCn = active ? `text-white bg-blue-600` : ``
+	const disabledCn = disabled ? `bg-gray-200` : ``
 
 	return (
 		<div className={twMerge(commonCn + activeCn)} onClick={onClick} >
@@ -22,25 +15,41 @@ function Item({ active, children, onClick }) {
 	)
 }
 
-
-
 function Carousel({ items }) {
 	const [activeIndex, SetActiveIndex] = React.useState(0)
-	const [index, setIndex] = React.useState(0)
 
-	function PrevButton() {
-		setIndex(index - 1);
+	let hasNext = activeIndex < items.length - 1
+	let hasPrev = activeIndex > 0
+
+	function handleNextClick() {
+		if (hasNext) SetActiveIndex(activeIndex + 1)
 	}
-	function NextButton() {
-		setIndex(index + 1);
+	function handlePrevClick() {
+		if (hasPrev) SetActiveIndex(activeIndex - 1)
 	}
+
+
 	return (
 		<div className="flex">
+			<button
+				className="p-2 mx-2 text-white rounded bg-sky-600"
+				onClick={handlePrevClick}
+
+			>
+				Previous
+			</button>
 			{items.map((item, index) => {
 				return <Item className='flex' active={activeIndex == index} onClick={() => SetActiveIndex(index)}>
 					{item}
 				</Item>
 			})}
+			<button
+				className="p-2 mx-2 text-white rounded bg-sky-600"
+				onClick={handleNextClick}
+				disabled={!hasNext}
+			>
+				Next
+			</button>
 		</div>
 	)
 }
