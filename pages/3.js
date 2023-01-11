@@ -3,13 +3,9 @@ import { MainMenu } from '../components/MainMenu'
 import Container from '../components/Container'
 
 export default function Form() {
-
 	const [tweet, setTweet] = React.useState('');
 	const [status, setStatus] = React.useState('typing');
-
-	if (status === 'success') {
-		return alert('Your tweet has been sent!')
-	}
+	const [counter, setCounter] = React.useState(140);
 
 	function handleTextAreaChange(e) {
 		setTweet(e.target.value);
@@ -19,8 +15,9 @@ export default function Form() {
 		e.preventDefault();
 		setStatus('submitting');
 		try {
-			await submitForm(answer);
+			await submitForm(tweet);
 			setStatus('success');
+			return alert('Your tweet has been sent!')
 		} catch (err) {
 			setStatus('typing');
 		}
@@ -48,10 +45,20 @@ export default function Form() {
 						}>
 						Tweet
 					</button>
-					<div className='pl-40'>140</div>
+					<div className='pl-40'>{counter}</div>
 				</div>
 			</form>
 		</Container>
 	</div>
 }
 
+function submitForm(tweet) {
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+			if (!tweet) { reject(new Error('Type something')) }
+			else {
+				resolve();
+			}
+		}, 1500);
+	});
+}
