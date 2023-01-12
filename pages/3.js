@@ -5,18 +5,17 @@ import Container from '../components/Container'
 const lettersMaxNum = 140;
 
 export default function Form() {
-	const [tweet, setTweet] = React.useState('');
-	const [counter, setCounter] = React.useState(lettersMaxNum);
+	const [count, setCount] = React.useState(0);
 
 
-	function handleTextAreaChange(e) {
-		setTweet(e.target.value);
-		setCounter(n => n - 1)
-	}
+	const recalculate = e => {
+		if (count < 140) {
+			setCount(e.target.value.length);
+		}
+	};
 
 	function handleSubmit(e) {
 		e.preventDefault();
-		submitForm(tweet);
 		return alert('Your tweet has been sent!')
 	}
 
@@ -27,19 +26,20 @@ export default function Form() {
 				<h1 className='my-4 text-xl'>Tweet</h1>
 				<form onSubmit={handleSubmit}>
 					<textarea
-						className='w-full p-2 border-2 rounded h-36 border-sky-600'
-						value={tweet}
+						className='w-full p-2 border-2 rounded border-sky-600'
+						type='text'
+						rows={5}
 						placeholder='Input up to 140 characters...'
-						onChange={handleTextAreaChange}
+						onChange={recalculate}
 					>
 					</textarea>
 					<div className='flex items-center justify-between'>
 						<button
 							className='block p-2 text-white rounded cursor-pointer bg-sky-600'
-							disabled={tweet.length === 0}>
+							disabled={count.length === 0}>
 							Tweet
 						</button>
-						<div >{counter}</div>
+						<div >{lettersMaxNum - count}</div>
 					</div>
 				</form>
 			</div>
