@@ -3,12 +3,19 @@ import { MainMenu } from '../components/MainMenu'
 import Container from '../components/Container'
 import { SendButton } from '../components/SendButton'
 
+
+const questions = [
+	{ id: 0, question: 'What is the current F1 Champion\'s first name?', rigthAnswer: 'Max' },
+	{ id: 1, question: 'Which year the first F1 race was held?', rigthAnswer: '1950' },
+	{ id: 2, question: 'How many F1 drivers managed to become world champoin for 7 times?', rigthAnswer: '2' },
+]
+
+
 export default function Form() {
 	const [answer, setAnswer] = React.useState('');
 	const [error, setError] = React.useState(null);
 	const [status, setStatus] = React.useState('typing')
-
-
+	const [questionNumber, setQuestionNumber] = React.useState(1)
 
 	async function handleSubmit(event) {
 		event.preventDefault();
@@ -27,12 +34,17 @@ export default function Form() {
 		setAnswer(event.target.value);
 	}
 
+	function handleNextClick() {
+		setQuestionNumber(questionNumber + 1);
+	}
+
 	return (
 		<>
 			<Container>
 				<MainMenu />
 				<div className='mx-auto w-[300px]'>
 					<h1 className='my-4 text-xl'>Formula one quiz</h1>
+
 					<p>
 						Type the current F1 Champion's name?
 					</p>
@@ -56,7 +68,13 @@ export default function Form() {
 						{status === 'success' &&
 							<p className='text-xl text-green-700'>
 								Nice one!
-							</p>}
+							</p>
+						}
+						{status === 'success' &&
+							<button onClick={handleNextClick}>
+								Next question
+							</button>
+						}
 					</form>
 				</div>
 			</Container>
