@@ -2,20 +2,17 @@ import * as React from 'react'
 import { MainMenu } from '../components/MainMenu'
 import Container from '../components/Container'
 
-const lettersMaxNum = 140;
-
 export default function Form() {
 	const [count, setCount] = React.useState(0);
 
 
-	const recalculate = e => {
-		if (count < 140) {
-			setCount(e.target.value.length);
-		}
+	const recalculate = event => {
+		event.target.value = event.target.value.slice(0, 140)
+		setCount(event.target.value.length);
 	};
 
-	function handleSubmit(e) {
-		e.preventDefault();
+	function handleSubmit(event) {
+		event.preventDefault();
 		return alert('Your tweet has been sent!')
 	}
 
@@ -39,7 +36,7 @@ export default function Form() {
 							disabled={count.length === 0}>
 							Tweet
 						</button>
-						<div >{lettersMaxNum - count}</div>
+						<div >{140 - count}</div>
 					</div>
 				</form>
 			</div>
