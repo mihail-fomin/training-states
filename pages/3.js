@@ -13,7 +13,7 @@ export default function Form() {
 
 	function handleSubmit(event) {
 		event.preventDefault();
-		alert('Your tweet has been sent!')
+		if (input.length) alert('Your tweet has been sent!')
 	}
 
 	return <div>
