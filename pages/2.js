@@ -3,63 +3,70 @@ import { MainMenu } from "../components/MainMenu"
 import { twMerge } from "tailwind-merge"
 import Container from "../components/Container"
 
-function Item({ active, children, onClick }) {
-	const commonCn = `cursor-pointer text-black w-full p-2 text-xl border-2 border-gray-400 hover:bg-gray-200 rounded`
-	const activeCn = active ? `text-white bg-blue-600` : ``
+function PaginationItem({ active, children, onClick }) {
+	const commonCn = `
+	cursor-pointer 
+	rounded
+	w-full h-12 aspect-square
+	text-black text-xl
+	border-2 border-gray-400 
+	hover:bg-gray-100 
+	`
+	const activeCn = active ? `text-white bg-blue-600 hover:bg-blue-700` : ``
 
 	return (
-		<div className={twMerge(commonCn + activeCn)} onClick={onClick} >
+		<button className={twMerge(commonCn + activeCn)} onClick={onClick} >
 			{children}
-		</div>
+		</button>
 	)
 }
 
-function Button({ disabled, children, onClick }) {
+function PaginationButton({ disabled, children, onClick }) {
 	const commonBtn = `p-2 mx-2 text-white rounded bg-sky-600 cursor-pointer`
-	const btnCn = disabled ? `cursor-not-allowed bg-gray-200 text-black` : ``
+	const btnCn = disabled ? `cursor-not-allowed bg-gray-100 text-gray-500` : ``
 
 	return (
-		<div className={twMerge(commonBtn + btnCn)} onClick={onClick}>
+		<button className={twMerge(commonBtn + btnCn)} onClick={onClick}>
 			{children}
-		</div>
+		</button>
 	)
 }
 
-function Carousel({ items }) {
-	const [activeIndex, SetActiveIndex] = React.useState(0)
+function Pagination({ items }) {
+	const [activeIndex, setActiveIndex] = React.useState(0)
 
 	let hasNext = activeIndex < items.length - 1
 	let hasPrev = activeIndex > 0
 
 	function handleNextClick() {
-		if (hasNext) SetActiveIndex(activeIndex + 1)
+		if (hasNext) setActiveIndex(activeIndex + 1)
 	}
 	function handlePrevClick() {
-		if (hasPrev) SetActiveIndex(activeIndex - 1)
+		if (hasPrev) setActiveIndex(activeIndex - 1)
 	}
 
 
 	return (
 		<div className="flex">
-			<Button
+			<PaginationButton
 				className=""
 				onClick={handlePrevClick}
 				disabled={!hasPrev}
 			>
 				Previous
-			</Button>
+			</PaginationButton>
 			{items.map((item, index) => {
-				return <Item className='flex' active={activeIndex == index} onClick={() => SetActiveIndex(index)}>
+				return <PaginationItem className='flex' active={activeIndex == index} onClick={() => setActiveIndex(index)}>
 					{item}
-				</Item>
+				</PaginationItem>
 			})}
-			<Button
-				className="p-2 mx-2 text-white rounded bg-sky-600"
+			<PaginationButton
+				className=""
 				onClick={handleNextClick}
 				disabled={!hasNext}
 			>
 				Next
-			</Button>
+			</PaginationButton>
 		</div>
 	)
 }
@@ -70,9 +77,8 @@ export default function Body() {
 		<Container>
 			<MainMenu />
 			<div className="flex flex-row">
-				<Carousel items={['1', '2', '3', '4', '5']} />
+				<Pagination items={['1', '2', '3', '4', '5']} />
 			</div>
-
 		</Container>
 	</div>
 }
