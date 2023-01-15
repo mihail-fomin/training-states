@@ -22,11 +22,11 @@ function PaginationItem({ active, children, onClick }) {
 }
 
 function PaginationButton({ disabled, children, onClick }) {
-	const commonBtn = `p-2 mx-2 text-white rounded bg-sky-600 cursor-pointer`
-	const btnCn = disabled ? `cursor-not-allowed bg-gray-100 text-gray-500` : ``
+	const commonCn = `p-2 mx-2 text-white rounded bg-sky-600 cursor-pointer`
+	const disabledCn = disabled ? `cursor-not-allowed bg-gray-100 text-gray-500` : ``
 
 	return (
-		<button className={twMerge(commonBtn + btnCn)} onClick={onClick}>
+		<button className={twMerge(commonCn + disabledCn)} onClick={onClick}>
 			{children}
 		</button>
 	)
@@ -49,7 +49,6 @@ function Pagination({ items }) {
 	return (
 		<div className="flex">
 			<PaginationButton
-				className=""
 				onClick={handlePrevClick}
 				disabled={!hasPrev}
 			>
@@ -61,7 +60,6 @@ function Pagination({ items }) {
 				</PaginationItem>
 			})}
 			<PaginationButton
-				className=""
 				onClick={handleNextClick}
 				disabled={!hasNext}
 			>

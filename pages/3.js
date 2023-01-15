@@ -1,19 +1,30 @@
 import * as React from 'react'
 import { MainMenu } from '../components/MainMenu'
 import Container from '../components/Container'
+import { twMerge } from "tailwind-merge"
+
+
+function SendButton(disabled) {
+	const commonCn = `inline-block p-2 text-white rounded cursor-pointer bg-sky-600`
+	const disabledCn = disabled ? `cursor-not-allowed bg-gray-100 text-gray-500` : ``
+
+	return (
+		<button className={twMerge(commonCn + disabledCn)} >
+			Tweet
+		</button>
+	)
+}
 
 export default function Form() {
-	const [count, setCount] = React.useState(0);
+	const [input, setInput] = React.useState("");
 
-
-	const recalculate = event => {
-		event.target.value = event.target.value.slice(0, 140)
-		setCount(event.target.value.length);
+	function onChange(event) {
+		setInput(event.target.value.slice(0, 140))
 	};
 
 	function handleSubmit(event) {
 		event.preventDefault();
-		return alert('Your tweet has been sent!')
+		alert('Your tweet has been sent!')
 	}
 
 	return <div>
@@ -27,16 +38,15 @@ export default function Form() {
 						type='text'
 						rows={5}
 						placeholder='Input up to 140 characters...'
-						onChange={recalculate}
+						onChange={onChange}
+						value={input}
 					>
 					</textarea>
 					<div className='flex items-center justify-between'>
-						<button
-							className='block p-2 text-white rounded cursor-pointer bg-sky-600'
-							disabled={count.length === 0}>
-							Tweet
-						</button>
-						<div >{140 - count}</div>
+						<SendButton
+							disabled={!input.length}
+						/>
+						<div>{140 - input.length}</div>
 					</div>
 				</form>
 			</div>
