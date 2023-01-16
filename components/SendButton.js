@@ -5,7 +5,7 @@ export function SendButton({ disabled, children }) {
 	const commonCn = `
 		cursor-pointer
 		rounded
-		inline-block p-2 my-2
+		inline-block p-2 m-2
 		text-white
 	   bg-sky-600
 		hover:bg-sky-700
