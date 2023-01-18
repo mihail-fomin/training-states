@@ -13,8 +13,36 @@ export default function Form() {
 
 	function handleSubmit(event) {
 		event.preventDefault();
-		alert('Your tweet has been sent!')
+		if (input.length) alert('Your tweet has been sent!')
 		setInput('')
+	}
+	if (input.length) {
+		return <div>
+			<Container>
+				<MainMenu />
+				<div className='mx-auto w-[300px]'>
+					<h1 className='my-4 text-xl'>Tweet</h1>
+					<form onSubmit={handleSubmit}>
+						<textarea
+							className='w-full p-2 border-2 rounded border-sky-600'
+							rows={5}
+							placeholder='Input up to 140 characters...'
+							onChange={onChange}
+							value={input}
+						>
+						</textarea>
+						<div className='flex items-center justify-between'>
+							<SendButton
+								disabled={!input.length}
+							>
+								Tweet
+							</SendButton>
+							<div>{140 - input.length}</div>
+						</div>
+					</form>
+				</div>
+			</Container>
+		</div>
 	}
 
 	return <div>
@@ -28,12 +56,11 @@ export default function Form() {
 						rows={5}
 						placeholder='Input up to 140 characters...'
 						onChange={onChange}
-						value={input}
 					>
 					</textarea>
 					<div className='flex items-center justify-between'>
 						<SendButton
-							disabled={!input.length}
+							disabled={true}
 						>
 							Tweet
 						</SendButton>
@@ -43,4 +70,5 @@ export default function Form() {
 			</div>
 		</Container>
 	</div>
+
 }
