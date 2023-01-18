@@ -4,8 +4,8 @@ import Container from '../components/Container'
 import { SendButton } from '../components/SendButton'
 
 const questionList = [
-	{ id: 0, question: 'What is the current F1 Champion\'s first name?', rightAnswer: 'Max' },
-	{ id: 1, question: 'Which year the first F1 race was held?', rightAnswer: '1950' },
+	{ id: 0, question: 'Which year the first F1 race was held?', rightAnswer: '1950' },
+	{ id: 1, question: 'What is the current F1 Champion\'s first name?', rightAnswer: 'Max' },
 	{ id: 2, question: 'How many F1 drivers managed to become a world champoin for 7 times?', rightAnswer: '2' },
 ]
 
@@ -31,6 +31,7 @@ export default function Form() {
 			}, 1500);
 		})
 	}
+
 	async function handleSubmit(event) {
 		event.preventDefault();
 		setStatus('submitting');
@@ -44,8 +45,6 @@ export default function Form() {
 		}
 	}
 
-
-
 	function onChange(event) {
 		setAnswer(event.target.value);
 	}
@@ -54,7 +53,6 @@ export default function Form() {
 		setIndex(index + 1);
 		setAnswer('')
 	}
-
 
 	return (
 		<>
@@ -85,7 +83,6 @@ export default function Form() {
 								Nice one!
 							</p>
 						}
-
 						<button
 							className='inline-block p-2 m-2 text-white rounded cursor-pointer bg-sky-600 hover:bg-sky-700'
 							onClick={handleNextClick}>
