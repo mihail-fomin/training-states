@@ -23,7 +23,11 @@ function PaginationItem({ active, children, onClick }) {
 
 function PaginationButton({ disabled, children, onClick }) {
 	const commonCn = `p-2 mx-2 text-white rounded bg-sky-600 cursor-pointer`
-	const disabledCn = disabled ? `cursor-not-allowed bg-gray-100 text-gray-500` : ``
+	const disabledCn = disabled ? `
+	cursor-not-allowed
+	bg-gray-100 text-gray-500 
+	hover:bg-gray-100
+	` : ``
 
 	return (
 		<button className={twMerge(commonCn + disabledCn)} onClick={onClick}>

@@ -16,6 +16,7 @@ export default function Form() {
 		if (input.length) alert('Your tweet has been sent!')
 		setInput('')
 	}
+
 	if (input.length) {
 		return <div>
 			<Container>
