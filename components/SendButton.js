@@ -11,10 +11,10 @@ export function SendButton({ disabled, children }) {
 		hover:bg-sky-700
 		`
 	const disabledCn = disabled ? `
-	cursor-not-allowed
-	bg-gray-100 text-gray-500 
-	hover:bg-gray-100
-	` : ``
+		cursor-not-allowed
+		bg-gray-100 text-gray-500 
+		hover:bg-gray-100
+		` : ``
 
 	return (
 		<button className={twMerge(commonCn + disabledCn)} type="submit">
