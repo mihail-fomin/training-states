@@ -21,6 +21,21 @@ export default function CollorChooser() {
 		return `rgba(${red},${green},${blue}, 1)`
 	}
 
+	function RGBToHex(red, green, blue) {
+		let r = red.toString(16);
+		let g = green.toString(16);
+		let b = blue.toString(16);
+
+		if (r.length == 1)
+			r = "0" + r;
+		if (g.length == 1)
+			g = "0" + g;
+		if (b.length == 1)
+			b = "0" + b;
+
+		return "#" + r + g + b;
+	}
+
 	return (
 		<>
 			<Container>
@@ -30,6 +45,7 @@ export default function CollorChooser() {
 					<p>R</p>
 					<input
 						className='w-3/4 mr-4'
+						value={red}
 						name='red'
 						type='range'
 						min='0'
@@ -39,6 +55,7 @@ export default function CollorChooser() {
 					<p>G</p>
 					<input
 						className='w-3/4 mr-4'
+						value={green}
 						name='green'
 						type='range'
 						min='0'
@@ -48,18 +65,19 @@ export default function CollorChooser() {
 					<p>B</p>
 					<input
 						className='w-3/4 mr-4'
+						value={blue}
 						name='blue'
 						type='range'
 						min='0'
 						max='255'
 						onChange={onBlueChange} />
 					<label for='blue'>{blue}</label>
-				</div>
-				<div
-					style={{ background: formatRGB(red, green, blue) }}
-					className='mx-auto my-4 aspect-square w-60'
-				>
-
+					<div
+						style={{ background: formatRGB(red, green, blue) }}
+						className='my-4 aspect-square w-60'
+					/>
+					<div>dec: rgba({red}, {green}, {blue}, 1)</div>
+					{/* <div>hex: {RGBToHex()}</div> */}
 				</div>
 			</Container>
 		</>
