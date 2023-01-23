@@ -47,7 +47,7 @@ export default function CollorChooser() {
 					<label for='weight'>{weight}</label>
 					<div
 					/>
-					<div>BMI: {calculateBMI()} </div>
+					<div>BMI: {calculateBMI(height, weight)} </div>
 				</div>
 			</Container>
 		</>
