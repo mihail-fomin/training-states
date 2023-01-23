@@ -2,6 +2,14 @@ import * as React from 'react'
 import { MainMenu } from '../components/MainMenu'
 import Container from '../components/Container'
 
+function calculateBMI(heightM, weightKg) {
+	return weightKg / heightM ** 2
+}
+
+function renderBMI(heightCm, weightKg) {
+	return calculateBMI(heightCm / 100, weightKg).toFixed(1)
+}
+
 export default function CollorChooser() {
 	const [height, setHeight] = React.useState(180);
 	const [weight, setweight] = React.useState(80);
@@ -15,9 +23,7 @@ export default function CollorChooser() {
 		console.log(weight);
 	}
 
-	function calculateBMI(height, weight) {
-		return weight / Math.pow(height, 2)
-	}
+
 
 	return (
 		<>
@@ -47,7 +53,7 @@ export default function CollorChooser() {
 					<label for='weight'>{weight}</label>
 					<div
 					/>
-					<div>BMI: {calculateBMI(height, weight)} </div>
+					<div>BMI: {renderBMI(height, weight)} </div>
 				</div>
 			</Container>
 		</>
