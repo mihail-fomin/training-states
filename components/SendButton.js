@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { twMerge } from "tailwind-merge"
 
-export function SendButton({ disabled, children }) {
+export function SendButton({ disabled, children, onClick }) {
 	const commonCn = `
 		cursor-pointer
 		rounded
@@ -17,7 +17,7 @@ export function SendButton({ disabled, children }) {
 		` : ``
 
 	return (
-		<button className={twMerge(commonCn + disabledCn)} type="submit">
+		<button className={twMerge(commonCn + disabledCn)} type='button' onClick={onClick}>
 			{children}
 		</button>
 	)

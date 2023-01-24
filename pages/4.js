@@ -9,49 +9,49 @@ const questionList = [
 	{ id: 2, question: 'How many F1 drivers managed to become a world champoin for 7 times?', rightAnswer: '2' },
 ]
 
+async function sleep(ms) {
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve();
+		}, ms);
+	})
+}
+
+
 export default function Form() {
 	const [answer, setAnswer] = React.useState('');
-	const [error, setError] = React.useState(null);
+	const [error, setError] = React.useState('');
 	const [status, setStatus] = React.useState('typing')
 	const [index, setIndex] = React.useState(0)
 
 
 	let item = questionList[index];
 
-	function submitForm(answer) {
-		return new Promise((resolve, reject) => {
-			setTimeout(() => {
-				let shouldError = answer.toLowerCase() !== item.rightAnswer;
-				console.log(item.rightAnswer);
-				if (shouldError) {
-					reject(new Error(`Good guess but wrong answer. Right answer - ${item.rightAnswer}`));
-				} else {
-					resolve();
-				}
-			}, 1500);
-		})
+	function validate(answer) {
+		return answer.toLowerCase() === item.rightAnswer.toLowerCase()
 	}
 
-	async function handleSubmit(event) {
-		event.preventDefault();
-		setStatus('submitting');
-		setError(null)
-		try {
-			await submitForm(answer);
-			setStatus('success');
-		} catch (err) {
-			setStatus('typing');
-			setError(err);
-		}
-	}
-
-	function onChange(event) {
+	function onInputChange(event) {
 		setAnswer(event.target.value);
 	}
 
-	function handleNextClick() {
+	async function onSubmitButtonClick() {
+		setError('')
+		setStatus('loading');
+		await sleep(1500)
+		if (validate(answer)) {
+			setStatus('success');
+		} else {
+			setError('Good guess but wrong answer')
+			setStatus('typing')
+		}
+	}
+
+	function onNextButtonClick() {
 		setIndex(index + 1);
 		setAnswer('')
+		setError('')
+		setStatus('typing')
 	}
 
 	return (
@@ -61,34 +61,30 @@ export default function Form() {
 				<div className='mx-auto w-[300px]'>
 					<h1 className='my-4 text-xl'>Formula one quiz</h1>
 					<p>{item.question}</p>
-					<form onSubmit={handleSubmit}>
+					<form>
 						<input
 							className='w-full p-2 border-2 rounded border-sky-600'
 							value={answer}
-							onChange={onChange}
-							disabled={status === 'submitting'}
+							onChange={onInputChange}
+							disabled={status === 'loading'}
 						/>
-						<SendButton disabled={!answer.length ||
-							status === 'submitting'
-						}>
-							Submit
+						<SendButton
+							disabled={!answer.length || status === 'loading'}
+							onClick={status === 'success' ? onNextButtonClick : onSubmitButtonClick}>
+							{status === 'success' ? 'Next question' :
+								status === 'loading' ? 'Loading...' :
+									'Submit'}
 						</SendButton>
-						{error !== null &&
-							<p className="text-xl text-red-600">
-								{error.message}
-							</p>
-						}
 						{status === 'success' &&
 							<p className='text-xl text-green-700'>
 								Nice one!
 							</p>
 						}
-						<button
-							className='inline-block p-2 m-2 text-white rounded cursor-pointer bg-sky-600 hover:bg-sky-700'
-							onClick={handleNextClick}>
-							Next question
-						</button>
-
+						{error !== null &&
+							<p className="text-xl text-red-600">
+								{error}
+							</p>
+						}
 					</form>
 				</div>
 			</Container>
