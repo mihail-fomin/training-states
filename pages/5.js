@@ -8,20 +8,20 @@ export default function CollorChooser() {
 	const [blue, setblue] = React.useState(100);
 
 	function onRedChange(event) {
-		setRed(event.target.value);
+		setRed(Number(event.target.value));
 	}
 	function onGreenChange(event) {
-		setgreen(event.target.value);
+		setgreen(Number(event.target.value));
 	}
 	function onBlueChange(event) {
-		setblue(event.target.value);
+		setblue(Number(event.target.value));
 	}
 
 	function formatRGB(red, green, blue) {
 		return `rgba(${red},${green},${blue}, 1)`
 	}
 
-	function RGBToHex(red, green, blue) {
+	function convertRGBToHex(red, green, blue) {
 		let r = red.toString(16);
 		let g = green.toString(16);
 		let b = blue.toString(16);
@@ -51,7 +51,7 @@ export default function CollorChooser() {
 						min='0'
 						max='255'
 						onChange={onRedChange} />
-					<label for='red'>{red}</label>
+					<label htmlFor='red'>{red}</label>
 					<p>G</p>
 					<input
 						className='w-3/4 mr-4'
@@ -61,7 +61,7 @@ export default function CollorChooser() {
 						min='0'
 						max='255'
 						onChange={onGreenChange} />
-					<label for='blue'>{green}</label>
+					<label htmlFor='blue'>{green}</label>
 					<p>B</p>
 					<input
 						className='w-3/4 mr-4'
@@ -71,13 +71,13 @@ export default function CollorChooser() {
 						min='0'
 						max='255'
 						onChange={onBlueChange} />
-					<label for='blue'>{blue}</label>
+					<label htmlFor='blue'>{blue}</label>
 					<div
 						style={{ background: formatRGB(red, green, blue) }}
 						className='my-4 aspect-square w-60'
 					/>
-					<div>dec: rgba({red}, {green}, {blue}, 1)</div>
-					{/* <div>hex: {RGBToHex()}</div> */}
+					<div>dec: <code>rgba({red}, {green}, {blue}, 1)</code></div>
+					<div>hex: <code>{convertRGBToHex(red, green, blue)}</code></div>
 				</div>
 			</Container>
 		</>
