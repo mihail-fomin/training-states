@@ -4,6 +4,13 @@ import Container from '../components/Container'
 import { SendButton } from '../components/SendButton'
 
 
+function TextArea({ value, defaultValue, onChange }) {
+	const [_value, setValue] = React.useState(defaultValue)
+
+
+	return <textarea />
+}
+
 export default function Form() {
 	const [input, setInput] = React.useState("");
 
@@ -17,51 +24,25 @@ export default function Form() {
 		setInput('')
 	}
 
-	if (input.length) {
-		return <div>
-			<Container>
-				<MainMenu />
-				<div className='mx-auto w-[300px]'>
-					<h1 className='my-4 text-xl'>Tweet</h1>
-					<form onSubmit={handleSubmit}>
-						<textarea
-							className='w-full p-2 border-2 rounded border-sky-600'
-							rows={5}
-							placeholder='Input up to 140 characters...'
-							onChange={onChange}
-							value={input}
-						>
-						</textarea>
-						<div className='flex items-center justify-between'>
-							<SendButton
-								disabled={!input.length}
-							>
-								Tweet
-							</SendButton>
-							<div>{140 - input.length}</div>
-						</div>
-					</form>
-				</div>
-			</Container>
-		</div>
-	}
 
-	return <div>
+	return <>
 		<Container>
 			<MainMenu />
 			<div className='mx-auto w-[300px]'>
 				<h1 className='my-4 text-xl'>Tweet</h1>
-				<form onSubmit={handleSubmit}>
+				<form>
 					<textarea
 						className='w-full p-2 border-2 rounded border-sky-600'
 						rows={5}
 						placeholder='Input up to 140 characters...'
 						onChange={onChange}
+						value={input}
 					>
 					</textarea>
 					<div className='flex items-center justify-between'>
 						<SendButton
-							disabled={true}
+							disabled={!input.length}
+							onClick={handleSubmit}
 						>
 							Tweet
 						</SendButton>
@@ -70,6 +51,5 @@ export default function Form() {
 				</form>
 			</div>
 		</Container>
-	</div>
-
+	</>
 }

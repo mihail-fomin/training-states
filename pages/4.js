@@ -18,7 +18,26 @@ async function sleep(ms) {
 }
 
 
-export default function Form() {
+
+export default function App() {
+	const [screenType, setScreenType] = React.useState('question')
+
+	return (
+		<>
+			<Container>
+				<MainMenu />
+				<div className='mx-auto w-[300px]'>
+					<h1 className='my-4 text-xl'>Formula one quiz</h1>
+					{screenType === 'question'
+						? <QuestionScreen setScreenType={setScreenType} />
+						: <EndScreen setScreenType={setScreenType} />}
+				</div>
+			</Container>
+		</>
+	)
+}
+
+function QuestionScreen({ setScreenType }) {
 	const [answer, setAnswer] = React.useState('');
 	const [error, setError] = React.useState('');
 	const [status, setStatus] = React.useState('typing')
@@ -26,6 +45,7 @@ export default function Form() {
 
 
 	let item = questionList[index];
+	let isLastQuestion = index === questionList.length - 1
 
 	function validate(answer) {
 		return answer.toLowerCase() === item.rightAnswer.toLowerCase()
@@ -48,47 +68,53 @@ export default function Form() {
 	}
 
 	function onNextButtonClick() {
-		setIndex(index + 1);
-		setAnswer('')
-		setError('')
-		setStatus('typing')
-	}
+		if (isLastQuestion) {
+			setScreenType('end')
+		} else {
+			setIndex(index + 1);
+			setAnswer('')
+			setError('')
+			setStatus('typing')
+		}
 
-	return (
-		<>
-			<Container>
-				<MainMenu />
-				<div className='mx-auto w-[300px]'>
-					<h1 className='my-4 text-xl'>Formula one quiz</h1>
-					<p>{item.question}</p>
-					<form>
-						<input
-							className='w-full p-2 border-2 rounded border-sky-600'
-							value={answer}
-							onChange={onInputChange}
-							disabled={status === 'loading'}
-						/>
-						<SendButton
-							disabled={!answer.length || status === 'loading'}
-							onClick={status === 'success' ? onNextButtonClick : onSubmitButtonClick}>
-							{status === 'success' ? 'Next question' :
-								status === 'loading' ? 'Loading...' :
-									'Submit'}
-						</SendButton>
-						{status === 'success' &&
-							<p className='text-xl text-green-700'>
-								Nice one!
-							</p>
-						}
-						{error !== null &&
-							<p className="text-xl text-red-600">
-								{error}
-							</p>
-						}
-					</form>
-				</div>
-			</Container>
-		</>
-	)
+	}
+	return <>
+		<p>{item.question}</p>
+		<form>
+			<input
+				className='w-full p-2 border-2 rounded border-sky-600'
+				value={answer}
+				onChange={onInputChange}
+				disabled={status === 'loading'}
+			/>
+			<SendButton
+				disabled={!answer.length || status === 'loading'}
+				onClick={status === 'success' ? onNextButtonClick : onSubmitButtonClick}>
+				{status === 'success' ? (isLastQuestion ? 'Show results' : 'Next question') :
+					status === 'loading' ? 'Loading...' :
+						'Submit'}
+			</SendButton>
+			{status === 'success' &&
+				<p className='text-xl text-green-700'>
+					Nice one!
+				</p>
+			}
+			{error !== null &&
+				<p className="text-xl text-red-600">
+					{error}
+				</p>
+			}
+		</form>
+	</>
 }
 
+function EndScreen({ setScreenType }) {
+	return <>
+		Congratulations! You have finished the quiz!
+		<button
+			className='block p-2 m-2 text-white rounded cursor-pointer bg-sky-600 hover:bg-sky-700'
+			onClick={() => setScreenType('question')}>
+			Start again?
+		</button>
+	</>
+}
