@@ -1,6 +1,13 @@
 import * as React from 'react'
 import { MainMenu } from '../components/MainMenu'
 import Container from '../components/Container'
+import { twMerge } from 'tailwind-merge'
+
+const commonCn = `
+p-2 m-2
+rounded-xl
+text-center
+`
 
 function calculateBMI(heightM, weightKg) {
 	return weightKg / heightM ** 2
@@ -16,6 +23,14 @@ function tellBMI(bmi) {
 			bmi <= 29.9 ? 'Overweight' :
 				'Obese'
 }
+
+function tellBMIColor(bmi) {
+	return bmi <= 18.5 ? 'bg-orange-500' :
+		bmi <= 24.9 ? 'bg-green-600 text-white' :
+			bmi <= 29.9 ? 'bg-orange-500' :
+				'bg-red-600 text-white'
+}
+
 
 export default function App() {
 	const [height, setHeight] = React.useState(180);
@@ -60,8 +75,10 @@ export default function App() {
 					<label for='weight'>{weight}</label>
 					<div
 					/>
-					<div>BMI: {renderBMI(height, weight)} </div>
-					<div>{tellBMI(bmi)}</div>
+					<div>BMI: <strong>{bmi}</strong> </div>
+					<div className={twMerge(commonCn + tellBMIColor(bmi))}>
+						{tellBMI(bmi)}
+					</div>
 				</div>
 			</Container>
 		</>
