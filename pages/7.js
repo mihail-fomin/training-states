@@ -20,7 +20,7 @@ export default function () {
 		let numbers = '0123456789'
 		let lwrcase = 'abdehkmnpswxz'
 		let upprcase = 'ABDEFGHKMNPQRSTWX'
-		let symbols = '-_'
+		let symbols = '-_/'
 		let chrs = numbers
 
 		if (lowercase) chrs += lwrcase
