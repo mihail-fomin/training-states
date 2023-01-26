@@ -5,11 +5,11 @@ import { twMerge } from 'tailwind-merge'
 function Item({ active, children, onClick }) {
 	const commonCn = `px-2
 		border
-		text-white bg-white
+		text-black bg-gray-100
 		`
 	const activeCn = active ? `
-	text-white bg-blue-600
-	` : ``
+		text-white bg-blue-600
+		` : ``
 
 	return (
 		<Link className={twMerge(commonCn + activeCn)} onClick={onClick} >

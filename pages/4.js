@@ -18,7 +18,6 @@ async function sleep(ms) {
 }
 
 
-
 export default function App() {
 	const [screenType, setScreenType] = React.useState('question')
 
@@ -79,7 +78,8 @@ function QuestionScreen({ setScreenType }) {
 
 	}
 	return <>
-		<p>{item.question}</p>
+		<p>Question {index + 1} of {questionList.length}</p>
+		<p className='my-2'>{item.question}</p>
 		<form>
 			<input
 				className='w-full p-2 border-2 rounded border-sky-600'
@@ -96,7 +96,7 @@ function QuestionScreen({ setScreenType }) {
 			</SendButton>
 			{status === 'success' &&
 				<p className='text-xl text-green-700'>
-					Nice one!
+					Quite right you are!!!
 				</p>
 			}
 			{error !== null &&

@@ -4,7 +4,6 @@ import { MainMenu } from "../components/MainMenu"
 import Container from "../components/Container"
 
 
-
 function Item({ active, children, onClick }) {
 	const commonCn = `flex inline-center cursor-pointer justify-center w-full p-2 text-xl text-left border-2 border-gray-400 rounded`
 	const activeCn = active ? `
@@ -39,6 +38,7 @@ export default function Body() {
 		<Container>
 			<MainMenu />
 			<Accordion items={["First", "Second", "Third"]} />
+			<br />
 			<Accordion items={["A", "B", "C", "D"]} />
 		</Container>
 	</div>
