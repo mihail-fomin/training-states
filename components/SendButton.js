@@ -17,7 +17,7 @@ export function SendButton({ disabled, children, onClick }) {
 		` : ``
 
 	return (
-		<button className={twMerge(commonCn + disabledCn)} type='button' onClick={onClick}>
+		<button className={twMerge(commonCn + disabledCn)} type='button' disabled={disabled} onClick={onClick}>
 			{children}
 		</button>
 	)

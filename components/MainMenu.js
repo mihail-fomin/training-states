@@ -42,5 +42,6 @@ export function MainMenu() {
 		<Link className="px-2 text-white bg-blue-600" href='/4'>4th exercise</Link>
 		<Link className="px-2 text-white bg-blue-600" href='/5'>5th exercise</Link>
 		<Link className="px-2 text-white bg-blue-600" href='/6'>6th exercise</Link>
+		<Link className="px-2 text-white bg-blue-600" href='/7'>7th exercise</Link>
 	</div>
 }

@@ -41,22 +41,30 @@ function QuestionScreen({ setScreenType }) {
 	const [error, setError] = React.useState('');
 	const [status, setStatus] = React.useState('typing')
 	const [index, setIndex] = React.useState(0)
-
+	const [hint, setHint] = React.useState(false)
 
 	let item = questionList[index];
+	let trueAnswer = item.rightAnswer
 	let isLastQuestion = index === questionList.length - 1
 
 	function validate(answer) {
-		return answer.toLowerCase() === item.rightAnswer.toLowerCase()
+		return answer.toLowerCase() === trueAnswer.toLowerCase()
 	}
 
 	function onInputChange(event) {
 		setAnswer(event.target.value);
 	}
 
+	function onShowHintClick(event) {
+		event.preventDefault()
+		setError('')
+		setHint(!hint)
+	}
+
 	async function onSubmitButtonClick() {
 		setError('')
 		setStatus('loading');
+		setHint(false)
 		await sleep(1500)
 		if (validate(answer)) {
 			setStatus('success');
@@ -75,8 +83,8 @@ function QuestionScreen({ setScreenType }) {
 			setError('')
 			setStatus('typing')
 		}
-
 	}
+
 	return <>
 		<p>Question {index + 1} of {questionList.length}</p>
 		<p className='my-2'>{item.question}</p>
@@ -94,6 +102,12 @@ function QuestionScreen({ setScreenType }) {
 					status === 'loading' ? 'Loading...' :
 						'Submit'}
 			</SendButton>
+			<button
+				className='inline-block p-2 m-2 text-white rounded cursor-pointer w-28 bg-sky-600 hover:bg-sky-700'
+				onClick={onShowHintClick}
+			>
+				{hint === false ? `Show hint` : `Hide hint`}
+			</button>
 			{status === 'success' &&
 				<p className='text-xl text-green-700'>
 					Quite right you are!!!
@@ -102,6 +116,11 @@ function QuestionScreen({ setScreenType }) {
 			{error !== null &&
 				<p className="text-xl text-red-600">
 					{error}
+				</p>
+			}
+			{hint === true &&
+				<p>
+					Right answer is <span className='text-xl text-green-700'>{trueAnswer}</span>
 				</p>
 			}
 		</form>
