@@ -31,7 +31,6 @@ function tellBMIColor(bmi) {
 				'bg-red-600 text-white'
 }
 
-
 export default function App() {
 	const [height, setHeight] = React.useState(180);
 	const [weight, setweight] = React.useState(80);
@@ -44,7 +43,6 @@ export default function App() {
 	function onWeightChange(event) {
 		setweight(event.target.value);
 	}
-
 
 
 	return (
@@ -62,7 +60,7 @@ export default function App() {
 						min='0'
 						max='200'
 						onChange={onHeightChange} />
-					<label for='height'>{height}</label>
+					<label htmlFor='height'>{height}</label>
 					<p>Weight, kg</p>
 					<input
 						className='w-3/4 mr-4'
@@ -72,7 +70,7 @@ export default function App() {
 						min='0'
 						max='180'
 						onChange={onWeightChange} />
-					<label for='weight'>{weight}</label>
+					<label htmlFor='weight'>{weight}</label>
 					<div
 					/>
 					<div>BMI: <strong>{bmi}</strong> </div>
