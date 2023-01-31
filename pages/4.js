@@ -2,11 +2,16 @@ import * as React from 'react'
 import { MainMenu } from '../components/MainMenu'
 import Container from '../components/Container'
 import { SendButton } from '../components/SendButton'
+import Image from 'next/image'
+
+const firstRace = 'https://ik.imagekit.io/i7lh9dcka/F1/tr:w-400/1950.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1675082886754'
+const maxVerstappen = 'https://ik.imagekit.io/i7lh9dcka/F1/tr:w-400/max.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1675083426060'
+const champions = 'https://ik.imagekit.io/i7lh9dcka/F1/tr:w-400/Lewis-and-Michael.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1675084274601'
 
 const questionList = [
-	{ id: 0, question: 'Which year the first F1 race was held?', rightAnswer: '1950' },
-	{ id: 1, question: 'What is the current F1 Champion\'s first name?', rightAnswer: 'Max' },
-	{ id: 2, question: 'How many F1 drivers managed to become a world champoin for 7 times?', rightAnswer: '2' },
+	{ id: 0, question: 'Which year the first F1 race was held?', rightAnswer: '1950', picture: firstRace },
+	{ id: 1, question: 'What is the current F1 Champion\'s first name?', rightAnswer: 'Max', picture: maxVerstappen },
+	{ id: 2, question: 'How many F1 drivers managed to become a world champoin for 7 times?', rightAnswer: '2', picture: champions },
 ]
 
 async function sleep(ms) {
@@ -90,7 +95,7 @@ function QuestionScreen({ setScreenType }) {
 		<p className='my-2'>{item.question}</p>
 		<form>
 			<input
-				className='w-full p-2 border-2 rounded border-sky-600'
+				className='w-full p-2 border-2 rounded border-sky-600 focus:outline-none focus:ring focus:border-blue-500'
 				value={answer}
 				onChange={onInputChange}
 				disabled={status === 'loading'}
@@ -109,9 +114,13 @@ function QuestionScreen({ setScreenType }) {
 				{hint === false ? `Show hint` : `Hide hint`}
 			</button>
 			{status === 'success' &&
-				<p className='text-xl text-green-700'>
-					Quite right you are!!!
-				</p>
+				<div>
+					<p className='text-xl text-green-700'>
+						Quite right you are!!!
+					</p>
+					<Image src={item.picture} alt='right answer picture'></Image>
+				</div>
+
 			}
 			{error !== null &&
 				<p className="text-xl text-red-600">

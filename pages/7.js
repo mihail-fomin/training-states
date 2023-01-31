@@ -2,7 +2,7 @@ import * as React from 'react'
 import { MainMenu } from '../components/MainMenu'
 import Container from '../components/Container'
 
-export default function () {
+export default function App() {
 	const [value, setValue] = React.useState('')
 	const [length, setLength] = React.useState(6)
 	const [lowercase, setLowercase] = React.useState(false)

@@ -7,8 +7,17 @@ import { SendButton } from '../components/SendButton'
 function TextArea({ value, defaultValue, onChange }) {
 	const [_value, setValue] = React.useState(defaultValue)
 
+	if (_value) {
+		<textarea
+			value={_value}
+			onChange={(event) => {
+				setValue(event.target.value)
+			}}
+		/>
+	} else {
 
-	return <textarea />
+	}
+	return
 }
 
 export default function Form() {
