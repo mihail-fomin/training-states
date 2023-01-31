@@ -78,6 +78,10 @@ export default function App() {
 				>
 					Generate
 				</button>
+				<button
+					className='block p-2 my-2 text-white rounded cursor-pointer bg-sky-600 hover:bg-sky-700'
+					onClick={() => { navigator.clipboard.writeText(value) }}
+				>Copy to clipboard</button>
 			</div>
 		</Container>
 	</>
