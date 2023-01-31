@@ -2,7 +2,6 @@ import * as React from 'react'
 import { MainMenu } from '../components/MainMenu'
 import Container from '../components/Container'
 import { SendButton } from '../components/SendButton'
-import Image from 'next/image'
 
 const firstRace = 'https://ik.imagekit.io/i7lh9dcka/F1/tr:w-400/1950.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1675082886754'
 const maxVerstappen = 'https://ik.imagekit.io/i7lh9dcka/F1/tr:w-400/max.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1675083426060'
@@ -107,18 +106,24 @@ function QuestionScreen({ setScreenType }) {
 					status === 'loading' ? 'Loading...' :
 						'Submit'}
 			</SendButton>
-			<button
-				className='inline-block p-2 m-2 text-white rounded cursor-pointer w-28 bg-sky-600 hover:bg-sky-700'
-				onClick={onShowHintClick}
-			>
-				{hint === false ? `Show hint` : `Hide hint`}
-			</button>
+			{status !== 'success' &&
+				<button
+					className='inline-block p-2 m-2 text-white rounded cursor-pointer w-28 bg-sky-600 hover:bg-sky-700'
+					onClick={onShowHintClick}
+				>
+					{hint === false ? `Show hint` : `Hide hint`}
+				</button>
+			}
+
 			{status === 'success' &&
-				<div>
+				<div className='relative'>
 					<p className='text-xl text-green-700'>
 						Quite right you are!!!
 					</p>
-					<Image src={item.picture} alt='right answer picture'></Image>
+					<img
+						src={item.picture}
+						alt='right answer picture'
+					/>
 				</div>
 
 			}

@@ -17,11 +17,10 @@ export default function App() {
 	function onGenerateButtonClick(event) {
 		event.preventDefault()
 		let str = ''
-		let numbers = '0123456789'
+		let chrs = '0123456789'
 		let lwrcase = 'abdehkmnpswxz'
 		let upprcase = 'ABDEFGHKMNPQRSTWX'
 		let symbols = '-_/'
-		let chrs = numbers
 
 		if (lowercase) chrs += lwrcase
 		if (uppercase) chrs += upprcase

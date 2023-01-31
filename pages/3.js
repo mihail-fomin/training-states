@@ -41,7 +41,7 @@ export default function Form() {
 				<h1 className='my-4 text-xl'>Tweet</h1>
 				<form>
 					<textarea
-						className='w-full p-2 border-2 rounded border-sky-600'
+						className='w-full p-2 border-2 rounded border-sky-600 focus:outline-none focus:ring focus:border-blue-500'
 						rows={5}
 						placeholder='Input up to 140 characters...'
 						onChange={onChange}
