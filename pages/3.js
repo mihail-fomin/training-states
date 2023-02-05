@@ -5,18 +5,18 @@ import { SendButton } from '../components/SendButton'
 
 
 function TextArea(props) {
-	// `props.value` toggles between "controlled" / "uncontrolled" modes
+	// "props.value" toggles between "controlled" / "uncontrolled" modes
 	const {
-		// defaultValue,
+		defaultValue,
 		className,
-		onChange,
 		rows,
 		placeholder,
-		value,
 	} = props
 
-
-	// const [value, setValue] = React.useState(defaultValue)
+	//local value, setValue
+	const [_value, _setValue] = React.useState(defaultValue || "")
+	const value = "value" in props ? props.value : _value
+	const onChange = "value" in props ? (props?.onChange || (() => null)) : _setValue
 
 	return (
 		<textarea
