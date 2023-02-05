@@ -4,27 +4,36 @@ import Container from '../components/Container'
 import { SendButton } from '../components/SendButton'
 
 
-function TextArea({ value, defaultValue, onChange }) {
-	const [_value, setValue] = React.useState(defaultValue)
+function TextArea(props) {
+	// `props.value` toggles between "controlled" / "uncontrolled" modes
+	const {
+		// defaultValue,
+		className,
+		onChange,
+		rows,
+		placeholder,
+		value,
+	} = props
 
-	if (_value) {
+
+	// const [value, setValue] = React.useState(defaultValue)
+
+	return (
 		<textarea
-			value={_value}
-			onChange={(event) => {
-				setValue(event.target.value)
-			}}
+			className={className}
+			onChange={(event) => onChange(event.target.value, event)}
+			placeholder={placeholder}
+			rows={rows}
+			value={value}
 		/>
-	} else {
-
-	}
-	return
+	)
 }
 
 export default function Form() {
 	const [input, setInput] = React.useState("");
 
-	function onChange(event) {
-		setInput(event.target.value.slice(0, 140))
+	function onChange(value, _event) {
+		setInput(value.slice(0, 140))
 	};
 
 	function handleSubmit(event) {
@@ -40,14 +49,14 @@ export default function Form() {
 			<div className='mx-auto w-[300px]'>
 				<h1 className='my-4 text-xl'>Tweet</h1>
 				<form>
-					<textarea
+					<TextArea
 						className='w-full p-2 border-2 rounded border-sky-600 focus:outline-none focus:ring focus:border-blue-500'
-						rows={5}
-						placeholder='Input up to 140 characters...'
 						onChange={onChange}
+						placeholder='Input up to 140 characters...'
+						rows={5}
 						value={input}
 					>
-					</textarea>
+					</TextArea>
 					<div className='flex items-center justify-between'>
 						<SendButton
 							disabled={!input.length}
