@@ -4,14 +4,32 @@ import Container from '../components/Container'
 
 export default function App() {
 	const [value, setValue] = React.useState('')
-	const [length, setLength] = React.useState(6)
-	const [lowercase, setLowercase] = React.useState(false)
-	const [uppercase, setUppercase] = React.useState(false)
-	const [symbol, setSymbol] = React.useState(false)
+	const [withLength, setWithLength] = React.useState(6)
+	const [withLowercase, setWithLowercase] = React.useState(false)
+	const [withUppercase, setWithUppercase] = React.useState(false)
+	const [withSymbol, setWithSymbol] = React.useState(false)
 
+	function Checkbox({ name, label, onChange }) {
+		return <div className='my-2'>
+			<input type='checkbox' name={name} onChange={onChange} />
+			<label className='mx-2'>{label}</label>
+		</div>
+	}
 
 	function onLengthChange(event) {
-		setLength(event.target.value);
+		setWithLength(event.target.value);
+	}
+
+	function onLowercaseChange() {
+		setWithLowercase(!withLowercase)
+	}
+
+	function onUppercaseChange() {
+		setWithUppercase(!withUppercase)
+	}
+
+	function onSymbolChange() {
+		setWithSymbol(!withSymbol)
 	}
 
 	function onGenerateButtonClick(event) {
@@ -22,17 +40,21 @@ export default function App() {
 		let upprcase = 'ABDEFGHKMNPQRSTWX'
 		let symbols = '-_/'
 
-		if (lowercase) chrs += lwrcase
-		if (uppercase) chrs += upprcase
-		if (symbol) chrs += symbols
+		if (withLowercase) chrs += lwrcase
+		if (withUppercase) chrs += upprcase
+		if (withSymbol) chrs += symbols
 
 
 
-		for (let i = 0; i < length; i++) {
+		for (let i = 0; i < withLength; i++) {
 			let pos = Math.floor(Math.random() * chrs.length);
 			str += chrs.substring(pos, pos + 1)
 		}
 		setValue(str)
+	}
+
+	function onClipboardCopyClick() {
+		navigator.clipboard.writeText(value)
 	}
 
 	return <>
@@ -48,27 +70,28 @@ export default function App() {
 				/>
 				<input
 					className='w-1/2 mr-4'
-					value={length}
+					value={withLength}
 					name='range'
 					type='range'
 					min='6'
 					onChange={onLengthChange}
 					max='12' />
-				<label htmlFor='range'>{length}</label>
-				<div className='mt-3'>
+				<label htmlFor='range'>{withLength}</label>
+				<div className='my-2'>
 					<input type='checkbox' name='numbers' checked={true} />
 					<label className='mx-2'>Numbers (always enabled)</label>
 				</div>
+				<Checkbox
+					name='withLowercase'
+					onChange={onLowercaseChange}
+					label='Lowercase'
+				/>
 				<div className='my-2'>
-					<input type='checkbox' name='lowercase' onChange={() => setLowercase(!lowercase)} />
-					<label className='mx-2'>Lowercase</label>
-				</div>
-				<div className='my-2'>
-					<input type='checkbox' name='uppercase' onChange={() => setUppercase(!uppercase)} />
+					<input type='checkbox' name='withUppercase' onChange={onUppercaseChange} />
 					<label className='mx-2'>Uppercase</label>
 				</div>
 				<div className='my-2'>
-					<input type='checkbox' name='symbols' onChange={() => setSymbol(!symbol)} />
+					<input type='checkbox' name='withSymbol' onChange={onSymbolChange} />
 					<label className='mx-2'>Symbols</label>
 				</div>
 
@@ -80,7 +103,7 @@ export default function App() {
 				</button>
 				<button
 					className='block p-2 my-2 text-white rounded cursor-pointer bg-sky-600 hover:bg-sky-700'
-					onClick={() => { navigator.clipboard.writeText(value) }}
+					onClick={onClipboardCopyClick}
 				>Copy to clipboard</button>
 			</div>
 		</Container>
