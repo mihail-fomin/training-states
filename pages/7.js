@@ -9,9 +9,9 @@ export default function App() {
 	const [withUppercase, setWithUppercase] = React.useState(false)
 	const [withSymbol, setWithSymbol] = React.useState(false)
 
-	function Checkbox({ name, label, onChange }) {
+	function Checkbox({ name, label, onChange, checked }) {
 		return <div className='my-2'>
-			<input type='checkbox' name={name} onChange={onChange} />
+			<input type='checkbox' name={name} checked={checked} onChange={onChange} />
 			<label className='mx-2'>{label}</label>
 		</div>
 	}
@@ -83,17 +83,23 @@ export default function App() {
 				</div>
 				<Checkbox
 					name='withLowercase'
+					checked={withLowercase}
 					onChange={onLowercaseChange}
 					label='Lowercase'
 				/>
-				<div className='my-2'>
-					<input type='checkbox' name='withUppercase' onChange={onUppercaseChange} />
-					<label className='mx-2'>Uppercase</label>
-				</div>
-				<div className='my-2'>
-					<input type='checkbox' name='withSymbol' onChange={onSymbolChange} />
-					<label className='mx-2'>Symbols</label>
-				</div>
+				<Checkbox
+					name='withUppercase'
+					checked={withUppercase}
+					onChange={onUppercaseChange}
+					label='Uppercase'
+				/>
+
+				<Checkbox
+					name='withSymbol'
+					checked={withSymbol}
+					onChange={onSymbolChange}
+					label='Symbols'
+				/>
 
 				<button
 					className='block p-2 my-2 text-white rounded cursor-pointer bg-sky-600 hover:bg-sky-700'
